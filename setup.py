@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 long_desc = '''
-This package contains the ${name} Sphinx extension.
+This package contains the externallinks Sphinx extension.
 
 .. add description here ..
 '''
@@ -11,14 +11,13 @@ This package contains the ${name} Sphinx extension.
 requires = ['Sphinx>=0.6']
 
 setup(
-    name='sphinxcontrib-${name}',
+    name='sphinxcontrib-externallinks',
     version='0.1',
     url='http://bitbucket.org/birkenfeld/sphinx-contrib',
-    download_url='http://pypi.python.org/pypi/sphinxcontrib-${name}',
+    download_url='http://pypi.python.org/pypi/sphinxcontrib-externallinks',
     license='BSD',
-    author='${author}',
-    author_email='${author_email}',
-    description='Sphinx "${name}" extension',
+    author='ENDOH takanao',
+    description='Sphinx "externallinks" extension',
     long_description=long_desc,
     zip_safe=False,
     classifiers=[
