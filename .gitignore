@@ -6,6 +6,7 @@ syntax: glob
 *.so
 *.sw?
 .DS_Store
+dist
 tags
 
 syntax: regexp
