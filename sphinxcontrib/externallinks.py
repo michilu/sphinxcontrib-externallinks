@@ -21,8 +21,7 @@ def gen_role(func):
 
   return role
 
-def google_role(other):
-    return u"https://www.google.com/search?q={query}".format(query=quote_plus(other))
+google_role = gen_role(lambda x:u"https://www.google.com/search?q={query}".format(query=quote_plus(x)))
 
 def setup(app):
-    app.add_role("google", gen_role(google_role))
+    app.add_role("google", google_role)
