@@ -3,7 +3,7 @@ import urllib
 
 from sphinx.util.nodes import split_explicit_title
 
-def goolge_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
+def google_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     """
     Role to Google search.
     """
@@ -14,4 +14,4 @@ def goolge_role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
     return [node], []
 
 def setup(app):
-    app.add_role("google", goolge_role)
+    app.add_role("google", google_role)
