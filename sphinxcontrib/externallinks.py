@@ -13,13 +13,13 @@ def quote_plus(text):
 
 def gen_role(func):
 
-  @wraps(func)
-  def role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
-      title, other = split_title(text)
-      node = nodes.raw("", u"<a href='{url}'>{title}</a>".format(title=title, url=func(other)), format="html")
-      return [node], []
+    @wraps(func)
+    def role(typ, rawtext, text, lineno, inliner, options={}, content=[]):
+        title, other = split_title(text)
+        node = nodes.raw("", u"<a href='{url}'>{title}</a>".format(title=title, url=func(other)), format="html")
+        return [node], []
 
-  return role
+    return role
 
 def setup(app):
     app.add_role("google", gen_role(lambda x:u"https://www.google.com/search?q={query}".format(query=quote_plus(x))))
