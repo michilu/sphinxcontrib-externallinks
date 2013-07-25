@@ -39,4 +39,5 @@ def tenki_past(text):
 
 def setup(app):
     app.add_role("google", gen_role(lambda x:u"https://www.google.com/search?q={query}".format(query=quote_plus(x))))
+    app.add_role("google-images", gen_role(lambda x:u"https://www.google.com/search?q={query}&tbm=isch".format(query=quote_plus(x))))
     app.add_role("tenkipast", gen_role(tenki_past))
