@@ -6,14 +6,14 @@ long_desc = '''
 This package contains the externallinks Sphinx extension.
 
 .. add description here ..
-'''
+''' + open('README.rst').read()
 
 requires = ['Sphinx>=0.6']
 
 setup(
     name='sphinxcontrib-externallinks',
     version='0.1',
-    url='http://bitbucket.org/birkenfeld/sphinx-contrib',
+    url='https://github.com/MiCHiLU/sphinxcontrib-externallinks',
     download_url='http://pypi.python.org/pypi/sphinxcontrib-externallinks',
     license='BSD',
     author='ENDOH takanao',
