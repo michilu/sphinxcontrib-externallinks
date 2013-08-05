@@ -40,7 +40,7 @@ def google_maps_fromto(text, has_explicit):
         assert "from" in texts[:-5:-1]
         assert "to" in texts[:-5:-1]
         if len(texts) == 5:
-            dirflg = texts.pop(0)[0]
+            dirflg = texts.pop(0)[0].lower()
         else:
             dirflg = ""
         while len(texts) > 1:
@@ -50,6 +50,8 @@ def google_maps_fromto(text, has_explicit):
                 saddr = whare
             elif fromto == "to":
                 daddr = whare
+            else:
+                assert fromto in ["from", "to"]
     return u"https://maps.google.com/maps?saddr={saddr}&daddr={daddr}&dirflg={dirflg}".format(saddr=saddr, daddr=daddr, dirflg=dirflg)
 
 def tenki_past(text):
