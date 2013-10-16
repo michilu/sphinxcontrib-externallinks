@@ -43,23 +43,14 @@ def google_maps_fromto(text, has_explicit):
         texts = text.split(u",", 2) + [""] * 3
         saddr, daddr, dirflg = texts[:3]
     else:
-        texts = text.split(u" ", 4)
-        assert len(texts) in [4, 5]
-        assert "from" in texts[:-5:-1]
-        assert "to" in texts[:-5:-1]
-        if len(texts) == 5:
-            dirflg = texts.pop(0)[0].lower()
+        assert "from " in text
+        assert " to " in text.split("from ", 1)[-1]
+        if not text.startswith("from "):
+            dirflg = text[0].lower()
         else:
-            dirflg = ""
-        while len(texts) > 1:
-            fromto = texts.pop(0)
-            whare = texts.pop(0)
-            if fromto == "from":
-                saddr = whare
-            elif fromto == "to":
-                daddr = whare
-            else:
-                assert fromto in ["from", "to"]
+            dirflg = "r"
+        saddr = text.split("from ", 1)[-1].split(" to ")[0]
+        daddr = text.split(" to ", 1)[-1]
     return u"https://maps.google.com/maps?saddr={saddr}&daddr={daddr}&dirflg={dirflg}".format(saddr=saddr, daddr=daddr, dirflg=dirflg)
 
 def tenki_past(text):
