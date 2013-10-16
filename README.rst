@@ -27,3 +27,7 @@ This module defines some roles.
 `tenkipast` It takes a single, requiredargument, prefecture and date for the weather of the past in Japan(tenki.jp)::
 
     :tenkipast:`東京,2013/07/16`
+
+`wikipedia` It takes a single, requiredargument, langage and keywords for wikipedia's url::
+
+    :wikipedia:`ja,フィリピンのバロック様式教会群`

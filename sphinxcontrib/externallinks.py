@@ -22,7 +22,12 @@ def gen_role(func, use_explicit=False):
         args = [other]
         if use_explicit:
             args.append(has_explicit)
-        node = nodes.raw("", u"<a href='{url}'>{title}</a>".format(title=title, url=html_escape(func(*args))), format="html")
+        result = func(*args)
+        if isinstance(result, (list, tuple)):
+            url, title = result
+        else:
+            url = result
+        node = nodes.raw("", u"<a href='{url}'>{title}</a>".format(title=title, url=html_escape(url)), format="html")
         return [node], []
 
     return role
@@ -60,8 +65,13 @@ def tenki_past(text):
     year, month, day = time.strptime(date, u"%Y/%m/%d")[:3]
     return u"http://tenki.jp/past/detail/pref-{pref_no}.html?year={year}&month={month}&day={day}".format(pref_no=pref_no, year=year, month=month, day=day)
 
+def wikipedia(text):
+    lang, query = text.split(",", 1)
+    return u"http://{lang}.wikipedia.org/wiki/{query}".format(lang=lang, query=quote_plus(query)), query
+
 def setup(app):
     app.add_role("google", gen_role(lambda x:u"https://www.google.com/search?q={query}".format(query=quote_plus(x))))
     app.add_role("google-images", gen_role(lambda x:u"https://www.google.com/search?q={query}&tbm=isch".format(query=quote_plus(x))))
     app.add_role("google-maps-fromto", gen_role(google_maps_fromto, use_explicit=True))
     app.add_role("tenkipast", gen_role(tenki_past))
+    app.add_role("wikipedia", gen_role(wikipedia))
