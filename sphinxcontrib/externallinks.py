@@ -3,10 +3,13 @@
 from docutils import nodes, utils
 from functools import wraps
 from xml.sax import saxutils
+import re
 import time
 import urllib
 
 from sphinx.util.nodes import split_explicit_title
+
+re_WHC = re.compile(r"^0+")
 
 def html_escape(value):
     return saxutils.escape(value, {"\'":"&apos;", "\"":"&quot;"})
@@ -75,3 +78,5 @@ def setup(app):
     app.add_role("google-maps-fromto", gen_role(google_maps_fromto, use_explicit=True))
     app.add_role("tenkipast", gen_role(tenki_past))
     app.add_role("wikipedia", gen_role(wikipedia))
+    app.add_role("whc", gen_role(lambda x:u"http://whc.unesco.org/en/list/{query}".format(query=quote_plus(re_WHC.sub("", x)))))
+    app.add_role("whct", gen_role(lambda x:u"http://whc.unesco.org/en/tentativelists/{query}".format(query=quote_plus(re_WHC.sub("", x)))))

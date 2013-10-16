@@ -31,3 +31,8 @@ This module defines some roles.
 `wikipedia` It takes a single, requiredargument, langage and keywords for wikipedia's url::
 
     :wikipedia:`ja,フィリピンのバロック様式教会群`
+
+`whc` and `whct` It takes a single, requiredargument, number of UNESCO's World Heritage sites list or tentative list::
+
+    :whc:`0662` Yakushima (list of World Heritage sites)
+    :whct:`0370` Temples, Shrines and other structures of Ancient Kamakura (tentative list of World Heritage)
