@@ -70,4 +70,5 @@ def setup(app):
     app.add_role("tenkipast", gen_role(tenki_past))
     app.add_role("wikipedia", gen_role(wikipedia))
     app.add_role("whc", gen_role(lambda x:u"http://whc.unesco.org/en/list/{query}".format(query=quote_plus(re_WHC.sub("", x)))))
+    app.add_role("whcl", gen_role(lambda x:u"http://whc.unesco.org/en/statesparties/{query}".format(query=x)))
     app.add_role("whct", gen_role(lambda x:u"http://whc.unesco.org/en/tentativelists/{query}".format(query=quote_plus(re_WHC.sub("", x)))))

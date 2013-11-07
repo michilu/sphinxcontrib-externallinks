@@ -32,7 +32,8 @@ This module defines some roles.
 
     :wikipedia:`ja,フィリピンのバロック様式教会群`
 
-`whc` and `whct` It takes a single, requiredargument, number of UNESCO's World Heritage sites list or tentative list::
+`whc` , `whct` and `whcl` It takes a single, requiredargument, number of UNESCO's World Heritage sites list or tentative list::
 
     :whc:`0662` Yakushima (list of World Heritage sites)
     :whct:`0370` Temples, Shrines and other structures of Ancient Kamakura (tentative list of World Heritage)
+    :whcl:`ph` Philippines: Properties inscribed on the World Heritage List
