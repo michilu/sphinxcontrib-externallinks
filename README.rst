@@ -24,6 +24,11 @@ This module defines some roles.
     :google-maps-fromto:`driving from Mt.Fuji to Hiraizumi <富士山,平泉町,d>` by car
     :google-maps-fromto:`walking from Mt.Fuji to Hiraizumi <富士山,平泉町,w>`
 
+`img-altfix` It takes a single, requiredargument, image url.
+This example, `http://example.com/alt.png` is not none, so fail over `src` attribute to local file of `img` as example.com::
+
+    :img-altfix:`http://example.com/alt.png`
+
 `tenkipast` It takes a single, requiredargument, prefecture and date for the weather of the past in Japan(tenki.jp)::
 
     :tenkipast:`東京,2013/07/16`

@@ -3,12 +3,16 @@
 from docutils import nodes, utils
 from functools import wraps
 from xml.sax import saxutils
+import os.path
 import re
+import subprocess
 import time
 import urllib
 
 from sphinx.util.nodes import split_explicit_title
 
+re_IMG_ALTFIX = re.compile(r":img-altfix:`.+?`")
+re_IMG_ALTFIX_TAG = re.compile(r"^:img-altfix:`")
 re_WHC = re.compile(r"^0+")
 
 def html_escape(value):
@@ -53,6 +57,26 @@ def google_maps_fromto(text, has_explicit):
         daddr = text.split(" to ", 1)[-1]
     return u"https://maps.google.com/maps?saddr={saddr}&daddr={daddr}&dirflg={dirflg}".format(saddr=saddr, daddr=daddr, dirflg=dirflg)
 
+def set_img_altfix_base(app, _docname, source):
+    source[0] = re_IMG_ALTFIX.sub(
+        lambda matchobj: re_IMG_ALTFIX_TAG.sub(":img-altfix:`{0},".format(app.config.img_altfix_base), matchobj.group()),
+        source[0])
+
+def img_altfix(typ, rawtext, text, lineno, inliner, options={}, content=[]):
+    img_altfix_base, text = text.split(",", 1)
+    has_explicit, alt, src = split_explicit_title(utils.unescape(text))
+    basename = os.path.basename(src)
+    if not has_explicit:
+        alt = basename
+    output = subprocess.check_output(["find", "-L", ".", "-name", basename], cwd=img_altfix_base)
+    template = u"<img src='{src}' alt='{alt}'{altfix}>"
+    altfix = ""
+    for line in output.splitlines():
+        altfix = u" onerror='this.onerror=null;delete this.onerror;this.src=\"{0}\";'".format(html_escape(line.lstrip(".")))
+        break
+    node = nodes.raw("", template.format(src=html_escape(src), alt=html_escape(alt), altfix=altfix), format="html")
+    return [node], []
+
 def tenki_past(text):
     pref, date = text.split(u",", 1)
     pref_no = tenki_past_prefs_dict.get(pref, u"")
@@ -72,3 +96,8 @@ def setup(app):
     app.add_role("whc", gen_role(lambda x:u"http://whc.unesco.org/en/list/{query}".format(query=quote_plus(re_WHC.sub("", x)))))
     app.add_role("whcl", gen_role(lambda x:u"http://whc.unesco.org/en/statesparties/{query}".format(query=x)))
     app.add_role("whct", gen_role(lambda x:u"http://whc.unesco.org/en/tentativelists/{query}".format(query=quote_plus(re_WHC.sub("", x)))))
+
+    app.add_config_value("img_altfix_base", None, "env")
+    app.connect('source-read', set_img_altfix_base)
+    app.add_role("img-altfix", img_altfix)
+
