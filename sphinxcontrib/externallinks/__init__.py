@@ -11,6 +11,8 @@ import urllib
 
 from sphinx.util.nodes import split_explicit_title
 
+import google_maps
+
 re_IMG_ALTFIX = re.compile(r":img-altfix:`.+?`")
 re_IMG_ALTFIX_TAG = re.compile(r"^:img-altfix:`")
 re_WHC = re.compile(r"^0+")
@@ -101,3 +103,7 @@ def setup(app):
     app.connect('source-read', set_img_altfix_base)
     app.add_role("img-altfix", img_altfix)
 
+    #google-maps
+    app.add_node(google_maps.googlemaps,
+                 html=(google_maps.visit_googlemaps_node, google_maps.depart_googlemaps_node))
+    app.add_directive("google-maps", google_maps.GoogleMapsDirective)

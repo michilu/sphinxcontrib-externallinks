@@ -42,3 +42,23 @@ This example, `http://example.com/alt.png` is not none, so fail over `src` attri
     :whc:`0662` Yakushima (list of World Heritage sites)
     :whct:`0370` Temples, Shrines and other structures of Ancient Kamakura (tentative list of World Heritage)
     :whcl:`ph` Philippines: Properties inscribed on the World Heritage List
+
+Directives
+----------
+
+This module defines some directives.
+
+`google-maps` It takes a single, requiredargument, keywords for maps search::
+
+    .. google-maps:: Yakushima
+      :zoom: 10
+
+    .. google-maps:: Philippines
+      :latitude: 12.3
+      :longtitude: 123.4
+      :zoom: 5
+
+    .. google-maps:: driving from Mt.Fuji to Hiraizumi
+      :saddr: 富士山
+      :daddr: 平泉町
+      :dirflg: d
