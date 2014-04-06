@@ -71,3 +71,8 @@ def visit_googlemaps_node(self, node):
 
 def depart_googlemaps_node(self, node):
     pass
+
+def setup(app):
+    app.add_node(googlemaps,
+                 html=(visit_googlemaps_node, depart_googlemaps_node))
+    app.add_directive("google-maps-legacy", GoogleMapsDirective)

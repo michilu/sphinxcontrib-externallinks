@@ -48,17 +48,17 @@ Directives
 
 This module defines some directives.
 
-`google-maps` It takes a single, requiredargument, keywords for maps search::
+`google-maps-legacy` It takes a single, requiredargument, keywords for maps search::
 
-    .. google-maps:: Yakushima
+    .. google-maps-legacy:: Yakushima
       :zoom: 10
 
-    .. google-maps:: Philippines
+    .. google-maps-legacy:: Philippines
       :latitude: 12.3
       :longtitude: 123.4
       :zoom: 5
 
-    .. google-maps:: driving from Mt.Fuji to Hiraizumi
+    .. google-maps-legacy:: driving from Mt.Fuji to Hiraizumi
       :saddr: 富士山
       :daddr: 平泉町
       :dirflg: d
