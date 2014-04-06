@@ -53,17 +53,18 @@ Google Maps
 
 `google-maps` It takes a single, requiredargument, keywords for maps search.
 
-Default mode is `place`::
-
-    .. google-maps:: Fisht Olympic Stadium, Sochi Russia
-
-as::
+Default using Static Maps API::
 
     .. google-maps::
-      :mode: place
-      :q:    Fisht Olympic Stadium, Sochi Russia
+      :center: Berkeley,CA
+      :zoom: 14
+      :width: 400
+      :height: 400
 
-other modes as below::
+Embed API modes as below::
+
+    .. google-maps:: Fisht Olympic Stadium, Sochi Russia
+      :mode: place
 
     .. google-maps::
       :mode:        directions
@@ -80,23 +81,38 @@ other modes as below::
       :zoom:    18
       :maptype: satellite
 
-Modes:
+Optional parameters of Static API:
 
-- place
-- directions
-- search
-- view
+:key:       Google API key.
+            default using `google_api_key` in conf.py.
+            will generate url without `key` parameter if empty
+:width:     default 600, used for size
+:height:    default 450, used for size
+:scale:
+:format:
+:maptype:
+:language:
+:region:
+:markers:
+:path:
+:visible:
+:style:
+:sensor: always set to false
 
-Optional parameters:
+see the Google Maps Static API: https://developers.google.com/maps/documentation/staticmaps/
 
+
+Optional parameters of Embed API:
+
+:key:       Google API key, required for Embed API.
+            default using `google_api_key` in conf.py
 :width:     default 600
 :height:    default 450
 :q:
-:mode:
+:mode:      place, directions, search or view
 :origin:
 :destination:
 :avoid:
-:key:       Google API key
 :center:
 :zoom:
 :maptype:
