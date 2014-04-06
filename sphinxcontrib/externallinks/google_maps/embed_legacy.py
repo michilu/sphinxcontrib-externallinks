@@ -7,7 +7,7 @@ from docutils.parsers.rst import directives
 
 from sphinx.util.compat import Directive
 
-class googlemaps(nodes.General, nodes.Element):
+class googlemaps_legacy(nodes.General, nodes.Element):
     pass
 
 class GoogleMapsDirective(Directive):
@@ -28,7 +28,7 @@ class GoogleMapsDirective(Directive):
     }
 
     def run(self):
-        node = googlemaps()
+        node = googlemaps_legacy()
         if self.arguments:
             node["query"] = " ".join(self.arguments)
         for key in self.option_spec.keys():
@@ -73,6 +73,6 @@ def depart_googlemaps_node(self, node):
     pass
 
 def setup(app):
-    app.add_node(googlemaps,
+    app.add_node(googlemaps_legacy,
                  html=(visit_googlemaps_node, depart_googlemaps_node))
     app.add_directive("google-maps-legacy", GoogleMapsDirective)

@@ -48,6 +48,64 @@ Directives
 
 This module defines some directives.
 
+Google Maps
+^^^^^^^^^^^
+
+`google-maps` It takes a single, requiredargument, keywords for maps search.
+
+Default mode is `place`::
+
+    .. google-maps:: Fisht Olympic Stadium, Sochi Russia
+
+as::
+
+    .. google-maps::
+      :mode: place
+      :q:    Fisht Olympic Stadium, Sochi Russia
+
+other modes as below::
+
+    .. google-maps::
+      :mode:        directions
+      :origin:      Oslo Norway
+      :destination: Telemark Norway
+      :avoid:       tolls|highways
+
+    .. google-maps:: record stores in Seattle
+      :mode: search
+
+    .. google-maps::
+      :mode:    view
+      :center:  37.4218,-122.0840
+      :zoom:    18
+      :maptype: satellite
+
+Modes:
+
+- place
+- directions
+- search
+- view
+
+Optional parameters:
+
+:width:     default 600
+:height:    default 450
+:q:
+:mode:
+:origin:
+:destination:
+:avoid:
+:key:       Google API key
+:center:
+:zoom:
+:maptype:
+:language:
+:region:
+
+see the Google Maps Embed API: https://developers.google.com/maps/documentation/embed/guide
+
+
 `google-maps-legacy` It takes a single, requiredargument, keywords for maps search::
 
     .. google-maps-legacy:: Yakushima
