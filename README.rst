@@ -83,9 +83,11 @@ Embed API modes as below::
 
 Optional parameters of Static API:
 
+:key:       Google API key.
+            default using `google_api_key` in conf.py.
+            will generate url without `key` parameter if empty
 :width:     default 600, used for size
 :height:    default 450, used for size
-:key:       Google API key
 :scale:
 :format:
 :maptype:
@@ -102,6 +104,8 @@ see the Google Maps Static API: https://developers.google.com/maps/documentation
 
 Optional parameters of Embed API:
 
+:key:       Google API key, required for Embed API.
+            default using `google_api_key` in conf.py
 :width:     default 600
 :height:    default 450
 :q:
@@ -109,7 +113,6 @@ Optional parameters of Embed API:
 :origin:
 :destination:
 :avoid:
-:key:       Google API key
 :center:
 :zoom:
 :maptype:
