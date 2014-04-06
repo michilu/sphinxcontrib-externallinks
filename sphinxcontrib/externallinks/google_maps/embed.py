@@ -7,6 +7,9 @@ from docutils.parsers.rst import directives
 
 from sphinx.util.compat import Directive
 
+IMG_TAG = """\
+<img alt="{alt}" src="http://maps.googleapis.com/maps/api/staticmap?{query}">\
+"""
 IFRAME_TAG = """\
 <iframe
   width="{width}"
@@ -29,12 +32,19 @@ class GoogleMapsDirective(Directive):
     option_spec = {
         "width": directives.unchanged,
         "height": directives.unchanged,
+        "key": directives.unchanged,
+        "scale": directives.unchanged,
+        "format": directives.unchanged,
+        "markers": directives.unchanged,
+        "path": directives.unchanged,
+        "visible": directives.unchanged,
+        "style": directives.unchanged,
+        "sensor": directives.unchanged,
         "q": directives.unchanged,
         "mode": directives.unchanged,
         "origin": directives.unchanged,
         "destination": directives.unchanged,
         "avoid": directives.unchanged,
-        "key": directives.unchanged,
         "center": directives.unchanged,
         "zoom": directives.unchanged,
         "maptype": directives.unchanged,
@@ -45,7 +55,11 @@ class GoogleMapsDirective(Directive):
     def run(self):
         node = googlemaps()
         if self.arguments:
-            node["q"] = " ".join(self.arguments)
+            if self.options.get("mode"):
+                key = "q"
+            else:
+                key = "alt"
+            node[key] = " ".join(self.arguments)
         for key, value in self.options.items():
             node[key] = value
         return [node]
@@ -58,10 +72,19 @@ def make_visit_googlemaps_node(app):
           options[key] = node[key]
         width = options.pop("width", 600)
         height = options.pop("height", 450)
-        mode = options.pop("mode", "place")
-        options["key"] = app.config.google_api_key
-        self.body.append(IFRAME_TAG.format(width=width, height=height, mode=mode,
-                                         query=urllib.urlencode(options)))
+        mode = options.pop("mode", None)
+        api_key = options.pop("key", app.config.google_api_key)
+        if api_key not in (None, ""):
+            options["key"] = api_key
+        if mode is None:
+            alt = options.pop("alt", "")
+            options["size"] = "{0}x{1}".format(width, height)
+            options["sensor"] = "false"
+            self.body.append(IMG_TAG.format(alt=alt,
+                                                query=urllib.urlencode(options)))
+        else:
+            self.body.append(IFRAME_TAG.format(width=width, height=height, mode=mode,
+                                                query=urllib.urlencode(options)))
 
     return visit_googlemaps_node
 
